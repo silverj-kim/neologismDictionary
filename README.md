@@ -1,0 +1,2 @@
+# neologismDictionary
+Neologism dictionary
