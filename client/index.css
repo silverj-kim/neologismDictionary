@@ -1,0 +1,30 @@
+body {
+    font-family: 'ZCOOL KuaiLe';
+    text-align: center;
+}
+
+.header{
+    width: 100%;
+    text-align: center;
+}
+
+.header-title{
+    font-size: 4rem;
+    margin: 2rem;
+}
+
+#search-text{
+    margin: 0 auto;
+    width: 50%;
+    height: 2.5rem;
+    font-size: 2rem;
+}
+
+#search-button{
+    line-height: 1;
+    padding: 10px;
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
+    background-color: mediumpurple;
+}
