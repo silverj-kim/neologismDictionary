@@ -1,57 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="index.css">
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=ZCOOL KuaiLe">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Do Hyeon">
     <title>신조어 사전</title>
 </head>
+
 <body>
     <div class="header">
         <p class="header-title">Neologism dictionary</p>
     </div>
-    
+
     <div id="serach">
         <input type="text" id="search-text">
         <input type="button" id="search-button" value="검색" onclick="searchClick()">
     </div>
-    
-    <div id="result">
 
+    <div id="result">
+        <p id="word"></p>
+        <input type="button" id="add-word" value="신조어 추가" onClick="addWordClick()">
     </div>
+
+    <form id="addWordForm" onsubmit="addWordFormSubmit()">
+        단어 : <input type="text" id="formWord" required/>
+        단어의 뜻 : <input type="text" id="formMeaning" required/>
+        <input type="submit" id="formSubmit" value="Submit" />
+    </form>
 </body>
 <script>
     // onkeyup="searching(this)"
     // function searching(obj){
     //     document.getElementById("result").innerHTML = obj.value;
     // }
+    let currnetWord = '';
 
-    function searchClick(){
+    function searchClick() {
         let xhr = new XMLHttpRequest();
 
         let searchWord = document.getElementById('search-text').value;
-        console.log('searchWord : ' + searchWord);
-        let url = 'http://localhost:8000/find?searchWord='+searchWord;
+        let url = 'http://localhost:8000/find?searchWord=' + searchWord;
 
-        if(!xhr)
+        if (!xhr)
             return false;
-        
+
         xhr.open('GET', url);
         xhr.responseType = 'json';
-        xhr.send();
-
-        xhr.onreadystatechange = () =>{
-            if(xhr.status === 200){
+        xhr.onload = () => {
+            if (xhr.status === 200) {
                 let response = xhr.response;
-                document.getElementById('result').innerHTML = response.meaning;
+                document.getElementById('word').innerHTML = response.meaning;
+
+                if(response.isFound === false){
+                    document.getElementById('add-word').style.display = 'inline';
+                }
             }
             else
                 return xhr.status;
-    }
         }
-    
+        currnetWord = searchWord;
+        xhr.send();
+    }
+
+    function addWordClick(){
+       document.getElementById('addWordForm').style.display = 'block';
+       document.getElementById('formWord').value = currnetWord;
+    }
+
+    function addWordFormSubmit(){
+        let xhr = new XMLHttpRequest();
+        let url = 'http://localhost:8000/insert'
+
+        let word  = '';
+        let meaning = '';
+
+        let formData = new FormData();
+        formData.append("name", word);
+        formData.append("meaning", meaning);
+
+        xhr.open('POST', url);
+        xhr.responseType = 'json';
+        xhr.onload = () => {
+            if(xhr.status === 200){
+                let response = xhr.response;
+            }
+            else
+                console.log(xhr.response);
+        };
+        xhr.send(formData);
+    }
+
 </script>
+
 </html>

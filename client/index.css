@@ -1,5 +1,6 @@
 body {
-    font-family: 'ZCOOL KuaiLe';
+    font-family: 'Do Hyeon';
+    font-size: 1.5rem;
     text-align: center;
 }
 
@@ -20,11 +21,30 @@ body {
     font-size: 2rem;
 }
 
-#search-button{
+#search-button, #add-word, #formSubmit{
     line-height: 1;
     padding: 10px;
     font-size: 2rem;
     text-align: center;
     color: #fff;
     background-color: mediumpurple;
+}
+
+#add-word{
+    display:none;
+    font-size: 1rem;
+}
+
+#formSubmit, #formMeaning, #formWord{
+    font-size: 1rem;
+}
+
+#addWordForm{
+    display:none;
+    padding: 2rem;
+}
+
+#word{
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
 }
