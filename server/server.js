@@ -3,6 +3,9 @@ mongoose.set('useFindAndModify', false);
 
 let express = require('express');
 let app = express();
+let bodyParser = require('body-parser')
+// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 let port = 8000;
 let url = "mongodb://localhost:27017/neologism";
@@ -68,8 +71,20 @@ function route() {
     });
 
     app.post('/insert', function (req, res) {
-        console.log('body : ' + req.body);
-        return res.send('hi');
+        console.log('insert body : ' + JSON.stringify(req.body, 4, null));
+        let newName = req.body.name;
+        let newMeaning = req.body.meaning;
+
+        words.create({
+            name : newName,
+            meaning : newMeaning
+        }, () => {
+            res.send({
+                name : newName,
+                meaning : newMeaning
+            });
+        });
+
     });
 }
 

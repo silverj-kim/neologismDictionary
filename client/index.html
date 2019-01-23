@@ -22,20 +22,21 @@
 
     <div id="result">
         <p id="word"></p>
-        <input type="button" id="add-word" value="신조어 추가" onClick="addWordClick()">
+        <input type="button" id="add-word" value="신조어 추가" onclick="addWordClick()">
     </div>
 
-    <form id="addWordForm" onsubmit="addWordFormSubmit()">
-        단어 : <input type="text" id="formWord" required/>
-        단어의 뜻 : <input type="text" id="formMeaning" required/>
-        <input type="submit" id="formSubmit" value="Submit" />
-    </form>
+    <div id="addWord">
+        단어 : <input type="text" id="wordToAdd" required/>
+        단어의 뜻 : <input type="text" id="meaningToAdd" required/>
+        <input type="button" id="addButton" value="추가" onclick="addWord()"/>
+    </idv>
 </body>
 <script>
     // onkeyup="searching(this)"
     // function searching(obj){
     //     document.getElementById("result").innerHTML = obj.value;
     // }
+
     let currnetWord = '';
 
     function searchClick() {
@@ -66,31 +67,43 @@
     }
 
     function addWordClick(){
-       document.getElementById('addWordForm').style.display = 'block';
-       document.getElementById('formWord').value = currnetWord;
+       document.getElementById('addWord').style.display = 'block';
+       document.getElementById('wordToAdd').value = currnetWord;
     }
 
-    function addWordFormSubmit(){
-        let xhr = new XMLHttpRequest();
+    function addWord(){
+
         let url = 'http://localhost:8000/insert'
 
-        let word  = '';
-        let meaning = '';
+        let word  = document.getElementById("wordToAdd").value;
+        let meaning = document.getElementById("meaningToAdd").value;
+        
+        // let formData = new FormData();
+        // formData.append("name", word);
+        // formData.append("meaning", meaning);
 
-        let formData = new FormData();
-        formData.append("name", word);
-        formData.append("meaning", meaning);
+        let data = {
+            "name" : word,
+            "meaning" : meaning
+        }
 
+        let xhr = new XMLHttpRequest();
         xhr.open('POST', url);
+        
         xhr.responseType = 'json';
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify(data));
         xhr.onload = () => {
             if(xhr.status === 200){
-                let response = xhr.response;
+                let response = JSON.stringify(xhr.response);
+                console.log(response);
+                alert("신조어 추가 완료");
+                location.reload();
             }
             else
                 console.log(xhr.response);
         };
-        xhr.send(formData);
+
     }
 
 </script>

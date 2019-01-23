@@ -21,7 +21,7 @@ body {
     font-size: 2rem;
 }
 
-#search-button, #add-word, #formSubmit{
+#search-button, #add-word, #addButton{
     line-height: 1;
     padding: 10px;
     font-size: 2rem;
@@ -35,11 +35,11 @@ body {
     font-size: 1rem;
 }
 
-#formSubmit, #formMeaning, #formWord{
+#addButton, #meaningToAdd, #wordToAdd{
     font-size: 1rem;
 }
 
-#addWordForm{
+#addWord{
     display:none;
     padding: 2rem;
 }
