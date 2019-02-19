@@ -7,105 +7,47 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="index.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Do Hyeon">
+    <script type="text/javascript" src="index.js"></script>
     <title>신조어 사전</title>
 </head>
 
 <body>
+
     <div class="header">
         <p class="header-title">Neologism dictionary</p>
+        <p class="header-subtitle">신조어 사전</p>
     </div>
 
-    <div id="serach">
+    <div id="search">
         <input type="text" id="search-text">
-        <input type="button" id="search-button" value="검색" onclick="searchClick()">
+        <input type="button" id="search-button" value="검색">
     </div>
 
     <div id="result">
         <p id="word"></p>
-        <input type="button" id="add-word" value="신조어 추가" onclick="addWordClick()">
+        <input type="button" id="add-word" value="신조어 추가">
     </div>
 
     <div id="addWord">
-        단어 : <input type="text" id="wordToAdd" required/>
-        단어의 뜻 : <input type="text" id="meaningToAdd" required/>
-        <input type="button" id="addButton" value="추가" onclick="addWord()"/>
-    </idv>
+        단어 : <input type="text" id="wordToAdd">
+        단어의 뜻 : <input type="text" id="meaningToAdd">
+        <input type="button" id="addButton" value="추가">
+    </div>
+
+    <div id="popularWordRanking">
+        <p id="popularWordRanking-title">
+            신조어 검색 인기 순위
+        </p>
+        <div class="ranking-group">
+            <ol>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+        </div>
+    </div>
 </body>
-<script>
-    // onkeyup="searching(this)"
-    // function searching(obj){
-    //     document.getElementById("result").innerHTML = obj.value;
-    // }
-
-    let currnetWord = '';
-
-    function searchClick() {
-        let xhr = new XMLHttpRequest();
-
-        let searchWord = document.getElementById('search-text').value;
-        let url = 'http://localhost:8000/find?searchWord=' + searchWord;
-
-        if (!xhr)
-            return false;
-
-        xhr.open('GET', url);
-        xhr.responseType = 'json';
-        xhr.onload = () => {
-            if (xhr.status === 200) {
-                let response = xhr.response;
-                document.getElementById('word').innerHTML = response.meaning;
-
-                if(response.isFound === false){
-                    document.getElementById('add-word').style.display = 'inline';
-                }
-            }
-            else
-                return xhr.status;
-        }
-        currnetWord = searchWord;
-        xhr.send();
-    }
-
-    function addWordClick(){
-       document.getElementById('addWord').style.display = 'block';
-       document.getElementById('wordToAdd').value = currnetWord;
-    }
-
-    function addWord(){
-
-        let url = 'http://localhost:8000/insert'
-
-        let word  = document.getElementById("wordToAdd").value;
-        let meaning = document.getElementById("meaningToAdd").value;
-        
-        // let formData = new FormData();
-        // formData.append("name", word);
-        // formData.append("meaning", meaning);
-
-        let data = {
-            "name" : word,
-            "meaning" : meaning
-        }
-
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        
-        xhr.responseType = 'json';
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.send(JSON.stringify(data));
-        xhr.onload = () => {
-            if(xhr.status === 200){
-                let response = JSON.stringify(xhr.response);
-                console.log(response);
-                alert("신조어 추가 완료");
-                location.reload();
-            }
-            else
-                console.log(xhr.response);
-        };
-
-    }
-
-</script>
 
 </html>

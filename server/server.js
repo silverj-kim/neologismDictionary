@@ -77,11 +77,13 @@ function route() {
 
         words.create({
             name : newName,
-            meaning : newMeaning
+            meaning : newMeaning,
+            searchCount : 0
         }, () => {
             res.send({
                 name : newName,
-                meaning : newMeaning
+                meaning : newMeaning,
+                searchCount : 0
             });
         });
 

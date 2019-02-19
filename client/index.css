@@ -2,6 +2,7 @@ body {
     font-family: 'Do Hyeon';
     font-size: 1.5rem;
     text-align: center;
+    background-color : #f5f5f5;
 }
 
 .header{
@@ -11,9 +12,14 @@ body {
 
 .header-title{
     font-size: 4rem;
-    margin: 2rem;
+    margin-bottom: 1rem;
 }
 
+.header-subtitle{
+    font-size: 1.5rem;
+    margin: 1rem;
+    margin-bottom: 2rem;
+}
 #search-text{
     margin: 0 auto;
     width: 50%;
@@ -27,7 +33,11 @@ body {
     font-size: 2rem;
     text-align: center;
     color: #fff;
-    background-color: mediumpurple;
+    background-color: darkblue;
+}
+
+#result{
+    margin : 1rem;
 }
 
 #add-word{
@@ -47,4 +57,19 @@ body {
 #word{
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
+}
+
+#popularWordRanking-title{
+    color: darkblue;
+}
+
+#popularWordRanking{
+    background-color: #e8e8e8;
+    padding: 1rem;
+}
+
+.ranking-group{
+    margin: auto;
+    width: 20%;
+    text-align: center;
 }
